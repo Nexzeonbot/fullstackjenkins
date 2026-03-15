@@ -1,25 +1,25 @@
 pipeline {
- agent any
+    agent any
 
- stages {
+    stages {
 
-  stage('Clone Repo'){
-   steps{
-    git 'https://github.com/Nexzeonbot/fullstackjenkins.git'
-   }
-  }
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/Nexzeonbot/fullstackjenkins.git'
+            }
+        }
 
-  stage('Install Dependencies'){
-   steps{
-    sh 'npm install'
-   }
-  }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
 
-  stage('Run App'){
-   steps{
-    sh 'nohup node app.js &'
-   }
-  }
+        stage('Start Application') {
+            steps {
+                sh 'nohup node app.js &'
+            }
+        }
 
- }
+    }
 }
