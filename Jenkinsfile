@@ -21,8 +21,8 @@ stages {
     stage('Restart Backend') {
         steps {
             sh '''
-            ssh ec2-user@YOUR-EC2-IP "pkill -f app.py"
-            ssh ec2-user@YOUR-EC2-IP "nohup python3 app.py &"
+            ssh ec2-user@13.54.226.145 "pkill -f app.py"
+            ssh ec2-user@13.54.226.145 "nohup python3 app.py &"
             '''
         }
     }
@@ -31,3 +31,4 @@ stages {
 ```
 
 }
+
