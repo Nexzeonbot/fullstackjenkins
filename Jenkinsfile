@@ -1,37 +1,29 @@
 pipeline {
-agent any
+    agent any
 
-```
-stages {
+    stages {
 
-    stage('Clone Repo') {
-        steps {
-            git 'https://github.com/Nexzeonbot/fullstackjenkins.git'
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/Nexzeonbot/fullstackjenkins.git'
+            }
         }
-    }
 
-    stage('Deploy Backend to EC2') {
-        steps {
-            sh '''
-            ssh -o StrictHostKeyChecking=no ec2-user@13.54.226.145 << EOF
-            cd /home/ec2-user
-            pkill -f app.py
-            nohup python3 app.py &
-            EOF
-            '''
+        stage('Deploy Backend to EC2') {
+            steps {
+                sh '''
+                ssh -o StrictHostKeyChecking=no ec2-user@13.54.226.145 << EOF
+                cd /home/ec2-user/fullstackjenkins
+                npm install
+                sudo pkill -f node
+                nohup node app.js > app.log 2>&1 &
+                EOF
+                '''
+            }
         }
-    }
 
-    stage('Deploy Frontend to S3') {
-        steps {
-            sh '''
-            aws s3 sync frontend/ s3://fullstackjen1
-            '''
-        }
     }
-
 }
-```
 
 }
 
